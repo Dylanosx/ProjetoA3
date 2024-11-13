@@ -5,7 +5,7 @@
 - Camila Cordeiro - 12523173817
 - Ellen Cristine do Vale Cruz - 12522179952
 - Dylan Renato de Andrade - 12523179440
-
+- Pietro da Silva Sanches -1252328165
 ## Índice
 
 - [Descrição do Projeto](#descrição-do-projeto)
