@@ -5,40 +5,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Easy Parking</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <header>
+    <header class="bg-dark text-white text-center py-3">
         <h1>Easy Parking</h1>
     </header>
 
-    <main>
+    <main class="container my-4">
         <!-- Formulário de cadastro do veículo -->
-        <section class="vehicle-form">
-            <h2>Informações do Veículo</h2>
-            <img src="icon.png" alt="">
+        <section class="vehicle-form bg-white rounded shadow p-4 mb-4">
+            <h2 class="text-center mb-3">Informações do Veículo</h2>
             <form>
-                <label for="placa">Placa:</label>
-                <input type="text" id="placa" name="placa" placeholder="Digite a placa" required>
-
-                <label for="modelo">Modelo do Veículo:</label>
-                <input type="text" id="modelo" name="modelo" placeholder="Digite o modelo" required>
-
-                <button type="submit">Cadastrar</button>
+                <div class="form-group">
+                    <label for="placa">Placa:</label>
+                    <input type="text" id="placa" name="placa" class="form-control" placeholder="Digite a placa" required>
+                </div>
+                <div class="form-group">
+                    <label for="modelo">Modelo do Veículo:</label>
+                    <input type="text" id="modelo" name="modelo" class="form-control" placeholder="Digite o modelo" required>
+                </div>
+                <button type="submit" class="btn btn-success btn-block">Cadastrar</button>
             </form>
+            <!-- Botão para abrir o popup -->
+            <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#popupModal">
+                Tabela de Preços
+            </button>
         </section>
 
         <!-- Seção de estacionamento -->
-        <section class="parking-lot">
-     
-            <div class="parking-grid">
-             
+        <section class="parking-lot text-center">
+            <div class="parking-grid row justify-content-center">
+                <!-- Aqui você pode adicionar os elementos de estacionamento -->
             </div>
         </section>
     </main>
 
-    <footer>
+    <footer class="bg-dark text-white text-center py-3">
         <p>&copy; 2024 Easy Parking. Todos os direitos reservados.</p>
     </footer>
+
+    <!-- Modal do Popup -->
+    <div class="modal fade" id="popupModal" tabindex="-1" role="dialog" aria-labelledby="popupModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="popupModalLabel">Mensagem</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    1H = R$5,00 
+                    1H30/2H = R$10,00
+                    2H/3H = R$15,00
+                    Diária = R$ 25,00
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS e dependências -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
+
