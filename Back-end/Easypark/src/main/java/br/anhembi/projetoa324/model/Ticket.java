@@ -20,8 +20,9 @@ public class Ticket {
     private Long id;
 
     @Column(nullable = false)
-    private String modeloCarro;
+    private String modeloVeiculo;
 
+    
     @Column(nullable = false)
     private String placa;
 
@@ -31,12 +32,12 @@ public class Ticket {
     private LocalDateTime horaSaida;
     
     private Double valorPago;
-
+    
     private String statusPagamento = "Pendente";
     
     @Override
     public String toString() {
-        return "Ticket [Modelo do Carro=" + modeloCarro + ", Placa=" + placa + ", Status do pagamento =" + statusPagamento + "]";
+        return "Ticket [Modelo do Veiculo=" + modeloVeiculo + ", Placa=" + placa + ", Status do pagamento =" + statusPagamento + "]";
     }
     
     public Long getId() {
@@ -45,10 +46,6 @@ public class Ticket {
     
     public void setId(Long id) {
         this.id = id;
-    }
-    
-    public void setModeloCarro(String modeloCarro) {
-        this.modeloCarro = modeloCarro;
     }
     
     public String getPlaca() {
@@ -70,11 +67,11 @@ public class Ticket {
     public LocalDateTime getHoraEntrada() {
         return horaEntrada;
     }
-
+    
     public void setHoraEntrada(LocalDateTime horaEntrada) {
         this.horaEntrada = horaEntrada;
     }
-
+    
     public LocalDateTime getHoraSaida() {
         return horaSaida;
     }
@@ -86,13 +83,17 @@ public class Ticket {
     public Double getValorPago() {
         return valorPago;
     }
-
+    
     public void setValorPago(Double valorPago) {
         this.valorPago = valorPago;
     }
-    public String getModeloCarro() {
-        return modeloCarro;
-    }  
     
+    public String getModeloVeiculo() {
+        return modeloVeiculo;
+    }
+    
+    public void setModeloVeiculo(String modeloVeiculo) {
+        this.modeloVeiculo = modeloVeiculo;
+    }
 }
 

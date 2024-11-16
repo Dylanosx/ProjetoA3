@@ -21,10 +21,10 @@ public class EntradaService {
     @Autowired
     private PagamentoRepo pagamentoRepo;
 
-    public Ticket criarTicket(String placa, String modeloCarro){
+    public Ticket criarTicket(String placa, String modeloVeiculo){
         Ticket ticket = new Ticket();
         ticket.setPlaca(placa);
-        ticket.setModeloCarro(modeloCarro);
+        ticket.setModeloVeiculo(modeloVeiculo);
         ticket.setHoraEntrada(LocalDateTime.now());
         ticket.setStatusPagamento("Pendente");
         return ticketRepo.save(ticket);

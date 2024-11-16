@@ -21,7 +21,7 @@ public class TicketServiceTest{
 
     assertNotNull(ticket);
     assertEquals("ABC-1234", ticket.getPlaca());
-    assertEquals("Fusca", ticket.getModeloCarro());
+    assertEquals("Fusca", ticket.getModeloVeiculo());
     assertEquals("Pendente", ticket.getStatusPagamento());
         
     }
