@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.RequestBody;
 import br.anhembi.projetoa324.model.Pagamento;
 import br.anhembi.projetoa324.model.Ticket;
 import br.anhembi.projetoa324.service.EntradaService;
@@ -18,8 +18,8 @@ public class EntradaController {
     private EntradaService ticketService;
 
     @PostMapping("/entrada")
-    public Ticket criarTicket(@RequestParam String placa, @RequestParam String modeloCarro){
-        return ticketService.criarTicket(placa, modeloCarro);
+    public Ticket criarTicket(@RequestBody Ticket ticket){
+        return ticketService.criarTicket(ticket.getPlaca(), ticket.getModeloVeiculo());
     }
 
     @GetMapping("/consulta")
