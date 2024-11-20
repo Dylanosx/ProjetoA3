@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pagamento - Cartão</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f8f9fa;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .btn-primary {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Pagamento com Cartão</h2>
+        <form id="paymentForm" onsubmit="simulatePayment(event)">
+            <div class="form-group mt-4">
+                <input type="text" class="form-control" placeholder="Número do cartão" required>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Nome no cartão" required>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Data de validade (MM/AA)" required>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="Código de segurança (CVV)" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Confirmar Pagamento</button>
+        </form>
+    </div>
+
+    <!-- Script para simulação -->
+    <script>
+        function simulatePayment(event) {
+            event.preventDefault(); // Impede o envio real do formulário
+
+            // Exibe um pop-up simulando o sucesso do pagamento
+            alert("Pagamento realizado com sucesso!\n\nResumo:\n- Método: Cartão\n- Valor: R$ XX,XX\nObrigado pela sua compra!");
+            
+            // Redireciona para outra página (por exemplo, página inicial ou agradecimento)
+            window.location.href = "home.html"; // Substitua pela página desejada
+        }
+    </script>
+</body>
+</html>

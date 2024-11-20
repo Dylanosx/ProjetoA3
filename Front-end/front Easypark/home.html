@@ -7,6 +7,20 @@
     <title>Easy Parking</title>
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Faz o body ocupar a altura total da página */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Altura mínima: 100% da altura da tela */
+            margin: 0;
+        }
+
+        /* Permite que o main ocupe o espaço restante entre header e footer */
+        main {
+            flex: 1; /* Faz o main crescer para ocupar o espaço disponível */
+        }
+    </style>
 </head>
 <body>
     <header class="bg-dark text-white text-center py-3">
@@ -17,7 +31,7 @@
         <!-- Formulário de cadastro do veículo -->
         <section class="vehicle-form bg-white rounded shadow p-4 mb-4">
             <h2 class="text-center mb-3">Informações do Veículo</h2>
-            <form>
+            <form id="vehicleForm">
                 <div class="form-group">
                     <label for="placa">Placa:</label>
                     <input type="text" id="placa" name="placa" class="form-control" placeholder="Digite a placa" required>
@@ -26,12 +40,15 @@
                     <label for="modelo">Modelo do Veículo:</label>
                     <input type="text" id="modelo" name="modelo" class="form-control" placeholder="Digite o modelo" required>
                 </div>
-                <button type="submit" class="btn btn-success btn-block">Cadastrar</button>
+                <button type="button" class="btn btn-success btn-block" onclick="generateTicket()">Cadastrar</button>
             </form>
-            <!-- Botão para abrir o popup -->
-            <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#popupModal">
-                Tabela de Preços
-            </button>
+            <!-- Botões: Tabela de Preços e Check Out -->
+            <div class="d-flex justify-content-around mt-3">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#popupModal">
+                    Ver tabela de preços
+                </button>
+                <a href="Saida.html" class="btn btn-warning">Fazer check out</a>
+            </div>
         </section>
 
         <!-- Seção de estacionamento -->
@@ -51,16 +68,36 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="popupModalLabel">Mensagem</h5>
+                    <h5 class="modal-title" id="popupModalLabel">Tabela de Preços</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    1H = R$5,00 
-                    1H30/2H = R$10,00
-                    2H/3H = R$15,00
-                    Diária = R$ 25,00
+                <div class="modal-body text-center">
+                    <p>1H = R$5,00</p>
+                    <p>1H30/2H = R$10,00</p>
+                    <p>2H/3H = R$15,00</p>
+                    <p>Diária = R$25,00</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal do Ticket -->
+    <div class="modal fade" id="ticketModal" tabindex="-1" role="dialog" aria-labelledby="ticketModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ticketModalLabel">Ticket Gerado</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    <p>Seu ticket foi gerado com sucesso!</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -73,6 +110,23 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Script para abrir o modal do ticket -->
+    <script>
+        function generateTicket() {
+            // Aqui você pode adicionar lógica para validar o formulário ou processar os dados
+            const placa = document.getElementById('placa').value;
+            const modelo = document.getElementById('modelo').value;
+
+            if (placa && modelo) {
+                // Exibe o modal de confirmação
+                $('#ticketModal').modal('show');
+            } else {
+                alert('Por favor, preencha todos os campos!');
+            }
+        }
+    </script>
 </body>
 </html>
+
 
