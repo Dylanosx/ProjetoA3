@@ -53,10 +53,35 @@ public class EntradaService {
         return ticketRepo.save(ticket);
     }
 
-
+    public String calcularTempoDePermanencia(Ticket ticket) {
+        if (ticket.getHoraSaida() == null) {
+            throw new IllegalStateException("Hora de saída não registrada para o ticket.");
+        }
+    
+        long minutos = Duration.between(ticket.getHoraEntrada(), ticket.getHoraSaida()).toMinutes();
+        long horas = minutos / 60;
+        minutos %= 60;
+    
+        return String.format("%dh %dmin", horas, minutos);
+    }
+    
     private double calcularValor(long minutos){
-        //cobranca
-        return minutos * 0.50;
+        if (minutos <= 60) {
+            return 5.00; // Até 1 hora
+        } else if (minutos <= 120) {
+            return 10.00; // 1 a 2 horas
+        } else if (minutos <= 180) {
+            return 15.00; // 2 a 3 horas
+        } else if (minutos <= 1440) {
+            return 25.00; // Diária
+        }else{
+        // se passar de 24 horas será cobrada uma diária adicional
+        long diasAdicionais = (minutos - 1440) / 1440;
+        if ((minutos - 1440) % 1440 > 0) {
+            diasAdicionais++;
+        }
+        return 25.00 * (1 + diasAdicionais); // cobrar +25 reais por cada dia adicional
+        }
     }
 
     public Ticket buscarTicketPorPlaca(String placa){
@@ -64,7 +89,7 @@ public class EntradaService {
     }
 
     //processamento do pagamento, mudanca do status para pago e registro do valor
- public Pagamento processarPagamento(Long ticketId, double valor){
+    public Pagamento processarPagamento(Long ticketId, double valor){
         Ticket ticket = ticketRepo.findById(ticketId).orElse(null);
 
         if(ticket == null){
@@ -84,4 +109,10 @@ public class EntradaService {
         pagamento.setValorPago(BigDecimal.valueOf(valor));
         return pagamentoRepo.save(pagamento);
     }
+    
+    public void atualizarTicket(Ticket ticket) {
+        ticketRepo.save(ticket);
+    }
+
+
 }
