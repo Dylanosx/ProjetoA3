@@ -1,6 +1,5 @@
 package br.anhembi.projetoa324.controller;
 
-import java.net.URI;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,37 +73,20 @@ public class EntradaController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/pagamento")
-    public ResponseEntity<Map<String, String>> processarPagamento(@RequestParam String placa, @RequestParam String metodoPagamento) {
-        try {
-            Ticket ticket = ticketService.buscarTicketPorPlaca(placa);
-
-            if (ticket == null) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body(Map.of("mensagem", "Ticket não encontrado para a placa " + placa));
+            @GetMapping("/metodos-pagamento")
+            public String exibirMetodosPagamento() {
+                return "metodos_pagamento.html";
             }
-
-            if ("pix".equalsIgnoreCase(metodoPagamento)) {
-                // leva o cliente para a pagina de pagamento do pix
-                return ResponseEntity.status(HttpStatus.FOUND)
-                        .location(URI.create("/pix_pagamento.html?valor=" + ticket.getValorPago()))
-                        .build();
-            } else if ("cartao".equalsIgnoreCase(metodoPagamento)) {
-                // leva o cliente para a pagina de pagamento do cartao
-                return ResponseEntity.status(HttpStatus.FOUND)
-                        .location(URI.create("/cartao_pagamento.html?valor=" + ticket.getValorPago()))
-                        .build();
-            } else {
-                return ResponseEntity.badRequest()
-                        .body(Map.of("mensagem", "Método de pagamento não suportado"));
+        
+            @GetMapping("/pix-pagamento")
+            public String exibirPixPagamento() {
+                return "pix_pagamento.html";
             }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Map.of("mensagem", "Erro ao processar pagamento. Tente novamente."));
-        }
-    }
-
-
+        
+            @GetMapping("/cartao-pagamento")
+            public String exibirCartaoPagamento() {
+                return "cartao_pagamento.html";
+            }
 }
 
     
