@@ -8,10 +8,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-/**
- *
- * @author Pichau
- */
 @Entity
 public class Ticket {
 
