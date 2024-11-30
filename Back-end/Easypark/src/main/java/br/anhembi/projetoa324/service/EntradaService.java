@@ -1,6 +1,8 @@
 package br.anhembi.projetoa324.service;
 
 import java.math.BigDecimal;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +21,11 @@ public class EntradaService {
     @Autowired
     private PagamentoRepo pagamentoRepo;
 
-    public Ticket criarTicket(String placa, String modeloCarro){
+    public Ticket criarTicket(String placa, String modeloVeiculo){
         Ticket ticket = new Ticket();
         ticket.setPlaca(placa);
-        ticket.setModeloCarro(modeloCarro);
+        ticket.setModeloVeiculo(modeloVeiculo);
+        ticket.setHoraEntrada(LocalDateTime.now());
         ticket.setStatusPagamento("Pendente");
         return ticketRepo.save(ticket);
     }
@@ -30,9 +33,11 @@ public class EntradaService {
     /**
      * @param placa
      * @return
+     *   public Ticket registrarSaida(String placa){
+        var ticket = ticketRepo.findByPlaca(placa);
      */
     public Ticket registrarSaida(String placa){
-        var ticket = ticketRepo.findByPlaca(placa);
+        Ticket ticket = ticketRepo.findByPlaca(placa);
 
         if(ticket == null){
             throw new IllegalArgumentException("Ticket não encontrado para a placa: " + placa);
@@ -48,7 +53,7 @@ public class EntradaService {
         long minutos = Duration.between(ticket.getHoraEntrada(), ticket.getHoraSaida()).toMinutes();
         double valor = calcularValor(minutos);
 
-        ((Pagamento) ticket).setValorPago(valor);
+        ticket.setValorPago(valor);
         ticket.setStatusPagamento("pendente");
 
         return ticketRepo.save(ticket);
@@ -89,20 +94,31 @@ public class EntradaService {
         return ticketRepo.findByPlaca(placa);
     }
 
+    //processamento do pagamento, mudanca do status para pago e registro do valor
     public Pagamento processarPagamento(Long ticketId, double valor){
         Ticket ticket = ticketRepo.findById(ticketId).orElse(null);
 
+        if(ticket == null){
+           throw new IllegalArgumentException("Ticket não encontrado");
+        }
+        if(!"Pendente".equals(ticket.getStatusPagamento())){
+            throw new IllegalStateException("");
+        }
+        
+        //atualizar status pagamento
+        ticket.setStatusPagamento("pago");
+        ticketRepo.save(ticket);
 
-        if(ticket !=null && "Pendente".equals(ticket.getStatusPagamento())){
-            ticket.setStatusPagamento("Pago");
-            ticketRepo.save(ticket);
-
-            /*registrar o pagamento */
-            Pagamento pagamento = new Pagamento();
-            pagamento.setTicketId(ticketId);
-            BigDecimal valorPago = BigDecimal.valueOf(valor);
-            pagamento.setValorPago(valorPago);
-            return pagamentoRepo.save(pagamento);
-        } return null;
+        //registrar o pagamento
+        Pagamento pagamento =  new Pagamento();
+        pagamento.setTicketId(ticketId);
+        pagamento.setValorPago(BigDecimal.valueOf(valor));
+        return pagamentoRepo.save(pagamento);
     }
+    
+    public void atualizarTicket(Ticket ticket) {
+        ticketRepo.save(ticket);
+    }
+
+
 }
