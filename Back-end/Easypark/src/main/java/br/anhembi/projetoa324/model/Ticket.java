@@ -56,5 +56,15 @@ public class Ticket {
     public void setStatusPagamento(String statusPagamento) {
         this.statusPagamento = statusPagamento;
     }
+
+    public Object getHoraSaida() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getHoraSaida'");
+    }
+
+    public Object getValorPago() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getValorPago'");
+    }
 }
 
