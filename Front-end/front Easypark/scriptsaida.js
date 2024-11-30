@@ -1,8 +1,12 @@
 // Função chamada quando o botão "Confirmar" é pressionado
 function showDetails() {
     // Captura o valor da placa inserido pelo usuário
-    const placa = document.getElementById("placa").value;
+    const placa = localStorage.getItem('placa');
 
+    if(!placa){
+        alert("placa não encontrada");
+        return;
+    }
     // Verifica se o campo placa está vazio
     if (placa.trim() === "") {
         alert("Por favor, insira o número da placa.");
@@ -10,7 +14,7 @@ function showDetails() {
     }
 
     // Faz a requisição para o backend usando o valor da placa
-    fetch('http://localhost:3306/consulta?placa=${placa}')
+    fetch(`http://localhost:8080/consulta?placa=${placa}`)
 
         .then(response => {
             if (!response.ok) {

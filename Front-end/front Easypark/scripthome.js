@@ -4,7 +4,9 @@ function generateTicket() {
     const placa = document.getElementById('placa').value;
     const modelo = document.getElementById('modelo').value;
 
+    
     if (placa && modelo) {
+        localStorage.setItem('placa', placa);
         fetch('http://localhost:8080/entrada', {
             method: 'POST',
             headers: {
