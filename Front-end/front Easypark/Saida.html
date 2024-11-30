@@ -41,7 +41,7 @@
         <h2>Inserir Ticket</h2>
         <form id="ticketForm">
             <div class="form-group mt-4">
-                <input type="text" class="form-control" id="ticket" name="ticket" placeholder="Digite o número do ticket" required>
+                <input type="text" class="form-control" id="placa" name="placa" placeholder="Digite a placa" required>
             </div>
             <button type="button" class="btn btn-primary mt-3" onclick="showDetails()">Confirmar</button>
         </form>
@@ -74,33 +74,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <script>
-        function showDetails() {
-            const ticket = document.getElementById("ticket").value;
+    
+    <script src="scriptsaida.js"></script>
 
-            if (ticket.trim() === "") {
-                alert("Por favor, insira o número do ticket.");
-                return;
-            }
-
-            // Dados simulados - Substitua com lógica real se necessário
-            const horarioEntrada = "08:00";
-            const horarioSaida = "10:30";
-            const valor = "15,00";
-
-            // Insere os dados no modal
-            document.getElementById("entrada").textContent = horarioEntrada;
-            document.getElementById("saida").textContent = horarioSaida;
-            document.getElementById("valor").textContent = valor;
-
-            // Exibe o modal
-            $('#detailsModal').modal('show');
-        }
-
-        function goToPayment() {
-            // Redireciona para a página de métodos de pagamento
-            window.location.href = "metodos_pagamento.html";
-        }
-    </script>
 </body>
 </html>

@@ -30,6 +30,12 @@ public class EntradaService {
         return ticketRepo.save(ticket);
     }
     
+    /**
+     * @param placa
+     * @return
+     *   public Ticket registrarSaida(String placa){
+        var ticket = ticketRepo.findByPlaca(placa);
+     */
     public Ticket registrarSaida(String placa){
         Ticket ticket = ticketRepo.findByPlaca(placa);
 
