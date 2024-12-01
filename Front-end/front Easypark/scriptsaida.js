@@ -1,10 +1,6 @@
 function showDetails() {
-    const placa = localStorage.getItem('placa');
+    const placa = document.getElementById("placa").value.trim();
 
-    if(!placa){
-        alert("Placa não encontrada");
-        return;
-    }
 
     if (placa.trim() === "") {
         alert("Por favor, insira o número da placa.");
