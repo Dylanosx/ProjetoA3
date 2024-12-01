@@ -33,4 +33,7 @@ function showDetails() {
             console.error("Erro:", error);
             alert("Não foi possível consultar o ticket.");
         });
+        {
+          
+}
 }
