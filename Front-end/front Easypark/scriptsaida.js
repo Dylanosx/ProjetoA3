@@ -19,9 +19,9 @@ function showDetails() {
         .then(response => {
             if (!response.ok) {
                 throw new Error("Erro ao consultar ticket");
-            }
-            return response.json();
-        })
+        }
+        return response.json();
+    })
         .then(data => {
             // Preenche os campos do modal com as informações retornadas
             document.getElementById("entrada").textContent = data.horarios.split(",")[0].split(":")[1].trim();
