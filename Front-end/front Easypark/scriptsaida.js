@@ -24,8 +24,12 @@ function showDetails() {
         })
         .then(data => {
             // Preenche os campos do modal com as informações retornadas
-            document.getElementById("entrada").textContent = data.horarios.split(",")[0].split(":")[1].trim();
-            document.getElementById("saida").textContent = data.horarios.split(",")[1].split(":")[1].trim();
+            let entradaParts = data.horarios.split(",")[0].split(":");
+            document.getElementById("entrada").textContent = entradaParts[1].trim() + ":" + entradaParts[2].trim();
+
+            // Processa o horário de saída
+            let saidaParts = data.horarios.split(",")[1].split(":");
+            document.getElementById("saida").textContent = saidaParts[1].trim() + ":" + saidaParts[2].trim();
             document.getElementById("valor").textContent = data.pagamento.split(",")[1].split(":")[1].trim();
 
             // Exibe o modal com os detalhes
