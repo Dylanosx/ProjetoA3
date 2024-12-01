@@ -48,19 +48,21 @@
                 <input type="password" class="form-control" placeholder="Código de segurança (CVV)" required>
             </div>
             <button type="submit" class="btn btn-primary">Confirmar Pagamento</button>
+            <button class="btn btn-secondary mt-4" onclick="backToHome()">Voltar</button>
         </form>
     </div>
 
     <!-- Script para simulação -->
     <script>
-        function simulatePayment(event) {
+       function backToHome() {
+        window.location.href = "Metodos_pagamento.html"; 
+       function simulatePayment(event) {
             event.preventDefault(); // Impede o envio real do formulário
 
             // Exibe um pop-up simulando o sucesso do pagamento
             alert("Pagamento realizado com sucesso!\n\nResumo:\n- Método: Cartão\n- Valor: R$ XX,XX\nObrigado pela sua compra!");
             
-            // Redireciona para outra página (por exemplo, página inicial ou agradecimento)
-            window.location.href = "home.html"; // Substitua pela página desejada
+       }
         }
     </script>
 </body>
