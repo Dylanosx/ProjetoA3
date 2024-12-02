@@ -1,5 +1,5 @@
-![Status](https://img.shields.io/badge/status-em%20desenvolvimento-orange)
-# Easy Parking ![capa com a Logo  do app](link_para_imagem)
+[img]https://i.imgur.com/g6K8N0n.png[/img]
+# Easy Parking 
 
 ## Membros
 - Camila Cordeiro - 12523173817
