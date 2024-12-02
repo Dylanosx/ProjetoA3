@@ -34,33 +34,83 @@
 <body>
     <div class="card">
         <h2>Pagamento com Cartão</h2>
-        <form id="paymentForm" onsubmit="simulatePayment(event)">
+        <form id="paymentForm" onsubmit="processPayment(event)">
             <div class="form-group mt-4">
-                <input type="text" class="form-control" placeholder="Número do cartão" required>
+                <input type="text" id="cardNumber" class="form-control" placeholder="Número do cartão" required>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Nome no cartão" required>
+                <input type="text" id="cardHolderName" class="form-control" placeholder="Nome no cartão" required>
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Data de validade (MM/AA)" required>
+                <input type="text" id="expiryDate" class="form-control" placeholder="Data de validade (MM/AA)" required>
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" placeholder="Código de segurança (CVV)" required>
+                <input type="password" id="cvv" class="form-control" placeholder="Código de segurança (CVV)" required>
             </div>
             <button type="submit" class="btn btn-primary">Confirmar Pagamento</button>
+            <button class="btn btn-secondary mt-4" onclick="backToHome()">Voltar</button>
         </form>
     </div>
 
-    <!-- Script para simulação -->
+    <!-- Script -->
     <script>
-        function simulatePayment(event) {
+        function backToHome() {
+            window.location.href = "Metodos_pagamento.html";
+        }
+
+        async function processPayment(event) {
             event.preventDefault(); // Impede o envio real do formulário
 
-            // Exibe um pop-up simulando o sucesso do pagamento
-            alert("Pagamento realizado com sucesso!\n\nResumo:\n- Método: Cartão\n- Valor: R$ XX,XX\nObrigado pela sua compra!");
-            
-            // Redireciona para outra página (por exemplo, página inicial ou agradecimento)
-            window.location.href = "home.html"; // Substitua pela página desejada
+            // Dados fictícios para teste (em produção, você deve validar os campos)
+            const cardNumber = document.getElementById("cardNumber").value;
+            const cardHolderName = document.getElementById("cardHolderName").value;
+            const expiryDate = document.getElementById("expiryDate").value;
+            const cvv = document.getElementById("cvv").value;
+
+            // ID do ticket e valor (devem ser carregados no frontend, por exemplo, via URL ou localStorage)
+            const ticketId = localStorage.getItem("ticketId");
+            const valor = localStorage.getItem("valor"); // Armazenado no modal anterior
+
+            if (!ticketId || !valor) {
+                alert("Erro: Dados do ticket não encontrados!");
+                return;
+            }
+
+            // Criação do objeto para o backend
+            const paymentData = {
+                ticketId: parseInt(ticketId),
+                valor: parseFloat(valor)
+            };
+
+            try {
+                // Envio da requisição para o backend
+                const response = await fetch("http://localhost:8080/pagamento", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(paymentData)
+                });
+
+                if (!response.ok) {
+                    throw new Error("Erro ao processar o pagamento");
+                }
+
+                const result = await response.json();
+
+                // Exibe mensagem de sucesso
+                alert(`Pagamento realizado com sucesso! 
+Resumo:
+- Ticket: ${result.ticketId}
+- Valor: R$ ${result.valorPago}
+- Status: ${result.statusPagamento}`);
+
+                // Redireciona para a página inicial
+                window.location.href = "home.html";
+            } catch (error) {
+                console.error("Erro ao processar pagamento:", error);
+                alert("Ocorreu um erro ao realizar o pagamento. Por favor, tente novamente.");
+            }
         }
     </script>
 </body>

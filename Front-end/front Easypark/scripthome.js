@@ -1,38 +1,43 @@
 
+    async function generateTicket() {
+        const placa = document.getElementById("placa").value;
+        const modelo = document.getElementById("modelo").value;
 
-function generateTicket() {
-    const placa = document.getElementById('placa').value;
-    const modelo = document.getElementById('modelo').value;
+        if (!placa || !modelo) {
+            alert("Por favor, preencha todos os campos!");
+            return;
+        }
 
-    if (placa && modelo) {
-        fetch('http://localhost:8080/entrada', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                placa: placa,
-                modeloVeiculo: modelo
-            })
-        })
-        .then(response => {
-            if (response.ok) {
-                return response.json().then(data => {
-                    // Display the success modal
-                    $('#ticketModal').modal('show');
-                });
-            } else {
-                return response.json().then(data => {
-                    alert('Erro: ' + (data.mensagem || 'Ocorreu um erro.'));
-                });
+        const ticketData = {
+            placa: placa,
+            modeloVeiculo: modelo
+        };
+
+        try {
+            const response = await fetch("http://localhost:8080/entrada", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(ticketData),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                alert(`Erro ao registrar: ${errorData.mensagem}`);
+                return;
             }
-        })
-        .catch(error => {
-            console.error('Erro ao gerar ticket:', error);
-            alert('Erro ao se comunicar com o servidor.');
-        });
-    } else {
-        alert('Por favor, preencha todos os campos!');
+
+            const result = await response.json();
+            alert(`Sucesso: ${result.mensagem}\nVeículo: ${result.veiculo}\nHora Entrada: ${result.horaEntrada}`);
+            
+            // Limpando o formulário após registro
+            document.getElementById("vehicleForm").reset();
+        } catch (error) {
+            console.error("Erro ao conectar com o backend:", error);
+            alert("Erro ao conectar com o servidor. Tente novamente.");
+        }
     }
-}
+
+
 

@@ -38,7 +38,7 @@
 </head>
 <body>
     <div class="card text-center">
-        <h2>Inserir Ticket</h2>
+        <h2>Inserir a Placa</h2>
         <form id="ticketForm">
             <div class="form-group mt-4">
                 <input type="text" class="form-control" id="placa" name="placa" placeholder="Digite a placa" required>
@@ -60,7 +60,7 @@
                 <div class="modal-body">
                     <p><strong>Horário de entrada:</strong> <span id="entrada"></span></p>
                     <p><strong>Horário de saída:</strong> <span id="saida"></span></p>
-                    <p><strong>Valor:</strong> R$<span id="valor"></span></p>
+                    <p><strong>Valor:</strong> <span id="valor"></span></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" onclick="goToPayment()">Pagar</button>
@@ -68,7 +68,11 @@
             </div>
         </div>
     </div>
-
+<script>
+    function goToPayment() {
+        window.location.href = "Metodos_pagamento.html"; 
+    }
+</script>
     <!-- Bootstrap JS e dependências -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
