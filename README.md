@@ -42,7 +42,7 @@ Este projeto é acessível diretamente pelo navegador, sem necessidade de downlo
 
 ## Tecnologias utilizadas
 
-- **Front-end**: JavaScript, HTML5 e CSS3
+- **Front-end**: JavaScript, HTML5 e CSS3 integrados com bootstrap
 - **Back-end**: Java com Spring Boot para criação da API REST
 - **Banco de Dados**: MySQL hospedado na Azure para armazenamento de dados de entrada e saída de veículos
 - **Hospedagem**: Azure para a implantação da API Spring Boot e do banco de dados MySQL
