@@ -1,4 +1,7 @@
-<img src="https://i.imgur.com/g6K8N0n.png/">
+<div align="center">
+  <img src="https://i.imgur.com/g6K8N0n.png" alt="easyparking logo" style="border-radius: 70%; width: 200px; height: 200px;" />
+</div>
+
 # Easy Parking 
 
 ## Membros
@@ -25,12 +28,12 @@ O objetivo principal é proporcionar uma experiência fluida e rápida para o cl
 
 - **Registro de entrada**: Cliente insere a placa e o modelo do carro, e o sistema registra automaticamente a entrada, atribuindo um `ticket` e armazenando o horário de entrada.
 - **Consulta e saída**: Na saída, o cliente insere a placa para visualizar as informações de horário de entrada, saída e o valor calculado.
-- **Pagamento**: Cliente pode pagar via Pix (geração de QR Code) ou cartão de crédito/débito em máquina local.
+- **Pagamento**: Cliente pode pagar via Pix (geração de QR Code) ou cartão de crédito/débito inserindo os dados no sistema.
 - **Consulta de valores**: Opção para o cliente consultar as tarifas, exibida em um pop-up informativo.
 
 ### Funcionamento
+<img src="https://i.ibb.co/QCFxCs0/animacaofuncional1.gif"/>
 
-(Adicionar imagens ou GIFs das principais telas e ações)
 
 ## Acesso ao projeto
 
@@ -60,10 +63,11 @@ Este projeto é acessível diretamente pelo navegador, sem necessidade de downlo
     ```json
     {
       "tarifas": [
-        {"tempo": "Até 1 hora", "valor": 5.00},
-        {"tempo": "1 a 2 horas", "valor": 10.00},
-        {"tempo": "2 a 3 horas", "valor": 15.00},
-        {"tempo": "Diária", "valor": 25.00}
+        {"tempo": "Até 1 hora", "valor": R$5.00},
+        {"tempo": "1 a 2 horas", "valor": R$10.00},
+        {"tempo": "2 a 3 horas", "valor": R$15.00},
+        {"tempo": "Diária", "valor": R$25.00}
+        {"tempo": "Acima de 24 horas", "valor": + R$25.00}
       ]
     }
 
@@ -87,7 +91,7 @@ Este projeto é acessível diretamente pelo navegador, sem necessidade de downlo
    }
 
 ### 2. Consulta de placa e valor (saída do veículo)
-- **Rota**: POST /api/saida
+- **Rota**: `GET /api/saida`
 - **Descrição:** Recupera o ticket associado à placa, registra o horário de saída, e calcula o valor a ser pago com base no tempo de permanência.
 - **Método:** POST
 
@@ -108,7 +112,7 @@ Este projeto é acessível diretamente pelo navegador, sem necessidade de downlo
       }
 
 ### 3. Confirmação de pagamento
-- **Rota:** POST /api/pagamento
+- **Rota:** `POST /api/pagamento`
 - **Descrição:** Processa a confirmação de pagamento do ticket via PIX ou cartão. Para o método PIX, é gerado um QR code para o pagamento. No caso do cartão, simula o processamento do pagamento.
 - **Método:** POST
 
@@ -142,39 +146,20 @@ Este projeto é acessível diretamente pelo navegador, sem necessidade de downlo
   "ticketId": "123456",
   "valor": 15.00,
   "statusPagamento": "Aguardando pagamento",
-  "mensagem": "Por favor, insira ou aproxime o cartão na maquininha."
+  "mensagem": "Preencha os dados do cartão"
   }
   
 - **Saída(após pagamento com cartão):**
   ```json
   {
-  "ticketId": "123456",
   "valor": 15.00,
   "statusPagamento": "Pago",
   "mensagem": "Pagamento confirmado com sucesso. Obrigado!",
-  "codigoTransacao": "CART-2024-123456",
   "dataPagamento": "2024-11-06T14:35:00Z"
   }
   
-### Fluxo de cancelamento de pagamento não concluído (cancelamento pelo cliente)
-<p>Se o cliente clicar em cancelar na maquininha (ou o pagamento não for realizado), o fluxo de pagamento reseta e o cliente volta à página de escolha de pagamento.</p>
-  
-- **Entrada:**
-  ```json
-  {
-  "ticketId": "123456",
-  "metodoAtual": "Cartão"
-  }
-
-- **Saída:**
-  ```json
-  {
-  "mensagem": "Pagamento cancelado. Escolha um novo método de pagamento.",
-  "redirecionamento": "/pagamento/selecionar"
-  }
 
 ### Fluxo de funcionamento
 1. **Entrada**: O cliente insere os dados iniciais do veículo, e o sistema gera automaticamente um ticket associado, capturando o horário de entrada.
 2. **Saída**: Ao retornar, o cliente insere a placa, e o sistema recupera o ticket, calcula o valor baseado no tempo de permanência e exibe as informações finais.
 3. **Pagamento**: O cliente escolhe o método de pagamento (Pix ou cartão), e o sistema processa o pagamento, liberando a saída ao ser confirmado.
-4. Em caso de cancelamento no pagamento com cartão, o cliente volta à página de escolha de pagamento.
